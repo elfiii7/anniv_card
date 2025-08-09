@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Anniversary with Penguins & Hearts 💖🐧</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: pink;
+      font-family: 'Dancing Script', cursive;
+      text-align: center;
+      overflow-x: hidden;
+      /* overflow-y: hidden;  Remove this to avoid cutting content */
+      position: relative;
+      min-height: 100vh;
+      margin: 0;
+      padding: 50px 0;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      font-size: 40px;
+      animation: float 5s linear infinite;
+      user-select: none;
+      pointer-events: none;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) translateX(0); opacity: 1; }
+      100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+    }
+
+    /* Penguin container */
+    #container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      height: 250px; /* enough height to show penguins */
+      margin: 0 auto;
+      margin-top: 40px;
+    }
+
+    .penguin {
+      display: block;
+      visibility: visible;
+      position: absolute;
+      top: 50%;
+      width: 120px;
+      height: auto;
+      transform: translateY(-50%);
+      transition: all 1s ease;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10;
+    }
+    #leftPenguin {
+      left: 28%;
+    }
+    #rightPenguin {
+      right: 32.7%;
+    }
+
+    #message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 28px;
+      color: black;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease,  visibility 1s ease;
+      width: 80%;
+      z-index: 5;
+
+    }
+
+    #pressBtn {
+      margin-top: 220px;
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff4d6d;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #pressBtn:hover {
+      background-color: #e04361;
+    }
+
+    /* Penguin sliding classes */
+    .slide-left {
+      left: -4% !important;
+    }
+    .slide-right {
+      right: -3% !important;
+    }
+    #message.show-message {
+      opacity: 1 !important;
+      visibility: visible !important;
+      z-index: 20 !important;
+
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💖 Happy 2-Year Anniversary 💖</h1>
+  <p>You make my world brighter every day! ❤️</p>
+
+  <div id="container">
+    <img src="https://i.postimg.cc/dVxwB7ww/1754743350260.png" alt="Penguin Left" class="penguin" id="leftPenguin">
+    <img src="https://i.postimg.cc/GpDwxqXx/1754743350260.png" alt="Penguin Right" class="penguin" id="rightPenguin">
+    <div id="message">Happy Anniversary! I love you! 🎉💖</div>
+  </div>
+
+  <button id="pressBtn">Press Me</button>
+
+  <script>
+    // Floating hearts script
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.innerHTML = "💖";
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 8000);
+    }, 500);
+
+    // Penguins sliding script
+    const leftPenguin = document.getElementById('leftPenguin');
+    const rightPenguin = document.getElementById('rightPenguin');
+    const message = document.getElementById('message');
+    const btn = document.getElementById('pressBtn');
+
+
+    btn.addEventListener('click', () => {
+      leftPenguin.classList.toggle('slide-left');
+      rightPenguin.classList.toggle('slide-right');
+
+      const isShowing = message.classList.toggle('show-message');
+
+      btn.innerText = isShowing ? "Hide Message" : "Press Me";
+
+          if (isShowing) {
+         // Launch confetti
+            confetti({
+              particleCount: 150,
+              spread: 70,
+              origin: { y: 0.6 }
+           });
+         }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+</body>
+</html>
+
+
